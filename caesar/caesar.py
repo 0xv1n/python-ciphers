@@ -5,56 +5,53 @@
 #   -p <fileName> to specify plaintext file to encrypt
 #   -c <fileName> to specify ciphertext to decrypt
 #
-#   example: `python caesar.py -s 3 -p samplefile.txt`
+#   example: `python caesar.py -s 3 -e -f sampletext.txt`
+#       will encrypt sampletext.txt with 3 character shift
 
 import sys, getopt
 
 def main(argv):
     inputfile = ''
+    func = ''
     shift = 3
     try:
-        opts, args = getopt.getopt(argv, "s:p:c:")
+        opts, args = getopt.getopt(argv, "hs:edf:")
     except getopt.GetoptError:
-        print ('caesar.py -p <plaintextfile> or caesar.py -c <ciphertextfile>')
+        print ('caesar.py -h for help using this script')
         sys.exit(2)
     for opt, arg in opts:
         crypt = []
+        if opt == '-h':
+            print('Usage: caesar.py -s <#> -e/-d -f <filename> \n-s <#>: specify shift amount\n-e: encrypt\n-d: decrypt')
         # if user specifies shift amount, we'll use it, else we default to 3 character shift
-        if opt == '-s':
+        elif opt == '-s':
             shift = int(arg)
-        elif opt == '-p':
+        elif opt == '-e':
+            func = 'enc'
+        elif opt == '-d':
+            func = 'dec'
+        elif opt == '-f':
             inputfile = arg
             with open(inputfile, 'r') as f:
                 orig = f.read()
                 f.seek(0)
                 for c in f.read():
-                    cryptor(c,'encrypt',crypt,shift)
+                    cryptor(c,func,crypt,shift)
                 f.close()
             message = ''.join(crypt)
-            output(orig,message,'enc')
-        # decrypt ciphertext
-        elif opt == '-c':
-            inputfile = arg
-            with open(inputfile, 'r') as f:
-                orig = f.read()
-                f.seek(0)
-                for c in f.read():
-                    cryptor(c,'decrypt',crypt,shift)
-                f.close()
-            message = ''.join(crypt)
-            output(orig,message,'dec')
+            output(orig,message,func)
 
 def cryptor(ch,func,msg,shamt):
     high_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     low_alphabet = high_alphabet.lower()
-    if func == 'encrypt':
+    if func == 'enc':
         if ch.strip() and ch in low_alphabet:
             msg.append(low_alphabet[(low_alphabet.index(ch) + shamt) % 26])
         elif ch.strip() and ch in high_alphabet:
             msg.append(high_alphabet[(high_alphabet.index(ch) + shamt) % 26])
         else:
             msg.append(ch)
-    elif func == 'decrypt':
+    elif func == 'dec':
         if ch.strip() and ch in low_alphabet:
             msg.append(low_alphabet[(low_alphabet.index(ch) - shamt) % 26])
         elif ch.strip() and ch in high_alphabet:
