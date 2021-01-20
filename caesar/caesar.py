@@ -27,47 +27,38 @@ def main(argv):
         elif opt == '-s':
             shift = int(arg)
         elif opt == '-e':
-            func = 'enc'
+            func = 'En'
         elif opt == '-d':
-            func = 'dec'
+            func = 'De'
         elif opt == '-f':
             inputfile = arg
             with open(inputfile, 'r') as f:
                 orig = f.read()
+                orig = orig.upper()
                 f.seek(0)
-                for c in f.read():
+                for c in orig:
                     cryptor(c,func,crypt,shift)
                 f.close()
             message = ''.join(crypt)
             output(orig,message,func)
 
 def cryptor(ch,func,msg,shamt):
-    high_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    low_alphabet = high_alphabet.lower()
-    if func == 'enc':
-        if ch.strip() and ch in low_alphabet:
-            msg.append(low_alphabet[(low_alphabet.index(ch) + shamt) % 26])
-        elif ch.strip() and ch in high_alphabet:
-            msg.append(high_alphabet[(high_alphabet.index(ch) + shamt) % 26])
+    alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    if func == 'En':
+        if ch.strip() and ch in alphabet:
+            msg.append(alphabet[(alphabet.index(ch) + shamt) % 26])
         else:
             msg.append(ch)
-    elif func == 'dec':
-        if ch.strip() and ch in low_alphabet:
-            msg.append(low_alphabet[(low_alphabet.index(ch) - shamt) % 26])
-        elif ch.strip() and ch in high_alphabet:
-            msg.append(high_alphabet[(high_alphabet.index(ch) - shamt) % 26])
+    elif func == 'De':
+        if ch.strip() and ch in alphabet:
+            msg.append(alphabet[(alphabet.index(ch) - shamt) % 26])
         else:
             msg.append(ch)
     return
 
-def output(orig,out,type):
-    if type == 'enc':
-        tx_t = 'En'
-    elif type == 'dec':
-        tx_t = 'De'
+def output(orig,out,func):
     print(f"{'Original Text:':<20}{orig:<40}")
-    print(f"{'{}crypted Text:'.format(tx_t):<20}{out:<40}")
-    pass
+    print(f"{'{}crypted Text:'.format(func):<20}{out:<40}")
 
 if __name__ == "__main__":
     main(sys.argv[1:])
