@@ -2,8 +2,8 @@
 # Author: Gabriel De Jesus
 # Usage:
 #   -s <#> to specify shift amount
-#   -p <fileName> to specify plaintext file to encrypt
-#   -c <fileName> to specify ciphertext to decrypt
+#   -e (encrypt) or -d (decrypt)
+#   -f <fileName> to specify ciphertext to decrypt
 #
 #   example: `python caesar.py -s 3 -e -f sampletext.txt`
 #       will encrypt sampletext.txt with 3 character shift
