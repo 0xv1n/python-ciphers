@@ -1,11 +1,12 @@
-## Sample Usage and Output:
-use -p <inputfile> for encrypting the text  
-
-use -c <inputfile> for decrypt
+# Usage:
 ```
-$ python caesar.py -p sampletext.txt 
+-s <#> to specify shift amount
+-e (encrypt) or -d (decrypt)
+-f <fileName> to specify file to encrypt or decrypt
+```
+**example: `python caesar.py -s 3 -e -f sampletext.txt` will encrypt sampletext.txt with 3 character shift**
+$ python caesar.py -s 3 -e -f sampletext.txt
+Original Text:      WE'RE STORMING THE CAPITOL! YIKES.
 
-Original Text: We're storming the capitol! Yikes.
-
-Encrypted: Zh'uh vwruplqj wkh fdslwro! Blnhv.
+Encrypted Text:     ZH'UH VWRUPLQJ WKH FDSLWRO! BLNHV.
 ```
