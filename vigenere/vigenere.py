@@ -12,7 +12,6 @@ def main():
             # each iteration, we need to shift the base alphabet by 1
             # we can conveniently repurpose code I wrote for the caesar cipher
             vigenere[i][j] = BASE_ALPH[(BASE_ALPH.index(BASE_ALPH[j]) + i) % 26]
-        print()
 
     # Define a Key and the Message Plaintext (for testing)
     # Eventually, take Key in as script arg, and message parsed from text file.
