@@ -3,7 +3,6 @@
 
 def main():
     keyboard = ['a','b','c','d','e','f']
-    lampboard = ['a','b','c','d','e','f']
     scramblers = []
     # Define Initial Wire Positions for Scrambled Alphabet
     scramble = ['B', 'A', 'D', 'F', 'E', 'C']
@@ -20,19 +19,16 @@ def main():
             scramblers[i][j] = scramble[(scramble.index(scramble[j]) + i) % 6]
     
     ch = ''
-    while ch != 'q':
+    while True:
         for ind in range(0,len(keyboard)):
             ch = input("Enter Letter to Encode:")
-            if ch == 'q':
-                break
             if ch not in keyboard:
                 print("Only Working with 'a-f' for now")
                 return
             print("Input Character:" + ch)
             out = scramblers[ind][keyboard.index(ch)]
             print("Encoded: " + out)
-        
-    print("Exiting")
 # in case we want to take in args
 if __name__ == "__main__":
     main() # sys.argv[1:]
+
